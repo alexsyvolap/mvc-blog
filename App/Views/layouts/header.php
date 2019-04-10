@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+
+        Author: SYVOLAP ALEX
+        Mail:   snikersmc123@gmail.com
+
+-->
 <head>
     <meta charset="UTF-8">
     <title><?php empty($title) ? print '' : print $title ?></title>

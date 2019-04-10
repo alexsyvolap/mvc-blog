@@ -1,4 +1,4 @@
-<form method="POST" action='/news/<?php print $post['id']?>/comment'>
+<form id="commentForm" class="mb-3" method="POST" action=''>
 
     <div class="row justify-content-center mb-2">
         <div class="col-md-6">
@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="row offset-md-3 mt-2">
-        <button type="submit" class="btn btn-success"><?php print \App\Lang::getRu()['posts']['action']['send'] ?></button>
+        <button id="sendComment" type="button" class="btn btn-success"><?php print \App\Lang::getRu()['posts']['action']['send'] ?></button>
     </div>
 
 </form>
