@@ -34,10 +34,10 @@ class Post extends Model
      * @return array
      * Забираем с базы посты
      */
-    public function getAllPosts()
+    public static function getAllPosts()
     {
         $sql = 'SELECT * FROM '.self::TABLE_NAME.' ORDER BY timestamp DESC';
-        $posts = $this->getQuery($sql);
+        $posts = self::getQuery($sql);
         return $posts;
     }
 
@@ -71,14 +71,14 @@ class Post extends Model
      * @throws \Exception
      * Создаем пост и возвращаем его ид
      */
-    public function createPost(createPostDTO $createPostDTO)
+    public static function createPost(createPostDTO $createPostDTO)
     {
         if(is_null($createPostDTO->getTitle()) || is_null($createPostDTO->getStatus())) {
             return null;
         }
 
         $sql = 'INSERT INTO '.self::TABLE_NAME.' (title, content, status, tags, timestamp) VALUES (?, ?, ?, ?, ?)';
-        $createdPostId = $this->setQuery($sql, [$createPostDTO->getTitle(), $createPostDTO->getContent(), $createPostDTO->getStatus(),
+        $createdPostId = self::setQuery($sql, [$createPostDTO->getTitle(), $createPostDTO->getContent(), $createPostDTO->getStatus(),
             $createPostDTO->getTags(), $createPostDTO->getNowDate()]);
         return $createdPostId;
     }
@@ -88,7 +88,7 @@ class Post extends Model
      * @return array|\Exception
      * Удаляем пост
      */
-    public function deletePost($id)
+    public static function deletePost($id)
     {
         $sql = 'DELETE FROM '.self::TABLE_NAME.' WHERE id = ?';
         return Model::getQuery($sql, [$id]);
@@ -100,11 +100,11 @@ class Post extends Model
      * @return bool|mixed
      * Редактируем пост
      */
-    public function editPost($post, createPostDTO $createPostDTO)
+    public static function editPost($post, createPostDTO $createPostDTO)
     {
         $postId = $post['id'];
         $sql = 'UPDATE '.self::TABLE_NAME.' SET title=?, status=?, content=?, tags=? WHERE id=?';
-        $this->getOneQuery($sql, [$createPostDTO->getTitle(), $createPostDTO->getStatus(), $createPostDTO->getContent(),
+        self::getOneQuery($sql, [$createPostDTO->getTitle(), $createPostDTO->getStatus(), $createPostDTO->getContent(),
             $createPostDTO->getTags(), $postId]);
         return $post;
     }

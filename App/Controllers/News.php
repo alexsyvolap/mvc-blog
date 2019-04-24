@@ -8,7 +8,6 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Service\createPostDTO;
 use Core\Controller;
-use Core\Redirect;
 use Core\View;
 
 class News extends Controller
@@ -21,8 +20,7 @@ class News extends Controller
     public function indexAction()
     {
         $title = Lang::getRu()['posts']['pages']['news'];
-        $postModel = new Post();
-        $posts = $postModel->getAllPosts();
+        $posts = Post::getAllPosts();
         View::render('News/index.php', compact('posts', 'title'));
     }
 
@@ -49,8 +47,8 @@ class News extends Controller
     public function createPostAction()
     {
         $postParams = self::createPostDto($this->route_params['POST']);
-        $postModel = new Post();
-        $createDPostId = $postModel->createPost($postParams);
+
+        $createDPostId = Post::createPost($postParams);
         $post = Post::findPostById($createDPostId);
         return print_r(json_encode($post));
     }
@@ -67,8 +65,7 @@ class News extends Controller
             throw new \Exception("Пост $postId не найден");
         }
 
-        $postModel = new Post();
-        return print_r(json_encode($postModel->deletePost($postId)));
+        return print_r(json_encode(Post::deletePost($postId)));
     }
 
     /**
@@ -84,8 +81,9 @@ class News extends Controller
         }
 
         $postParams = self::createPostDto($this->route_params['POST']);
-        $postModel = new Post();
-        $postModel->editPost($post, $postParams);
+
+        Post::editPost($post, $postParams);
+        $post = Post::findPostById($postId);
         return print_r(json_encode($post));
     }
 
@@ -94,9 +92,12 @@ class News extends Controller
      * @return createPostDTO
      * createdto
      */
-    public function createPostDto($params)
+    private function createPostDto($params)
     {
-        return new createPostDTO($params['title'], $params['content'], $params['status'], $params['tags']);
+        return new createPostDTO(isset($params['title']) ? $params['title'] : $params['titleModal'],
+            isset($params['content']) ? $params['content'] : $params['contentModal'],
+            isset($params['status']) ? $params['status'] : $params['statusModal'],
+            isset($params['tags']) ? $params['tags'] : $params['tagsModal']);
     }
 
 }

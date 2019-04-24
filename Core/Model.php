@@ -31,9 +31,9 @@ abstract class Model
      * @param $sql
      * @param array $params
      * @return array|\Exception
-     * Забираем с базы  все что просим
+     * Забираем с базы все строки
      */
-    public static function getQuery($sql, $params = [])
+    public static function getQuery($sql, array $params = [])
     {
         try {
             $pdo = self::getConnection();
@@ -52,7 +52,7 @@ abstract class Model
      * @return mixed
      * Забираем с базы только 1 строку
      */
-    public static function getOneQuery($sql, $params = [])
+    public static function getOneQuery($sql, array $params = [])
     {
         try {
             $pdo = self::getConnection();
@@ -71,7 +71,7 @@ abstract class Model
      * @return int|string
      * Забираем с базы последний добавленый пост
      */
-    public static function setQuery($sql, $params = [])
+    public static function setQuery($sql, array $params = [])
     {
         try {
             $pdo = self::getConnection();

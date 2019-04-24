@@ -40,6 +40,7 @@ $( document ).ready(function() {
             error: function (data) {
                 modalCreatePost.modal('toggle');
                 modalError.modal('toggle');
+                $('.error-description').html(data.responseText);
             }
         });
     });
@@ -94,6 +95,7 @@ $( document ).ready(function() {
             error: function (data) {
                 deletePosModal.modal('toggle');
                 modalError.modal('toggle');
+                $('.error-description').html(data.responseText);
             }
         });
     });
@@ -114,6 +116,7 @@ $( document ).ready(function() {
             error: function (data) {
                 editPostModal.modal('toggle');
                 modalError.modal('toggle');
+                $('.error-description').html(data.responseText);
             }
         });
     });
@@ -152,7 +155,7 @@ $( document ).ready(function() {
                             url: "/news/"+data.post_id+'/comment/count',
                             dataType: 'json',
                             success: function (data) {
-                                $('#commentCount').text(data)
+                                $('#commentCount').text(data.count)
                             },
                             error: function (data) {
                                 return false;
@@ -164,6 +167,7 @@ $( document ).ready(function() {
                 },
                 error: function (data) {
                     modalError.modal('toggle');
+                    $('.error-description').html(data.responseText);
                 }
             });
         } else {

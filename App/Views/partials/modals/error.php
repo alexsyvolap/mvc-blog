@@ -10,6 +10,9 @@
             </div>
             <div class="modal-body">
                 Произошла ошибка при запросе к серверу!
+                <div class="error-description">
+
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><?php print \App\Lang::getRu()['posts']['action']['close'] ?></button>
