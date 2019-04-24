@@ -28,7 +28,6 @@ $( document ).ready(function() {
             data: createPostForm.serialize(),
             dataType: 'json',
             success: function (data) {
-                console.log(data);
                 if(data != null) {
                     modalCreatePost.modal('toggle');
                     resetDataForm();

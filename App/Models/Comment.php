@@ -25,15 +25,11 @@ class Comment extends Model
         'id', 'post_id', 'content', 'email', 'timestamp'
     ];
 
-    public static function getAllPostComments($postId, $sort)
+    public static function getAllPostComments($postId)
     {
-        $query = 'SELECT * FROM '.self::TABLE_NAME.' WHERE post_id='.$postId.' ORDER BY timestamp '.$sort;
-        $comments = self::getDB()->query($query);
-        if(is_null($comments)) {
-            throw new \Exception("Поста с ID: $postId , не найден!");
-        } else {
-            return $comments->fetchAll();
-        }
+        $sql = 'SELECT * FROM '.self::TABLE_NAME.' WHERE post_id = ? ORDER BY timestamp ASC';
+        $comments = self::getQuery($sql, [$postId]);
+        return $comments;
     }
 
     public function findOrFail($id)

@@ -9,7 +9,7 @@
             <?php print $post['title'] ?>
         </span>
         <span class="float-right">
-            <i class="fa fa-image mr-2 add-image-post" data-toggle="modal" data-target="#addImagePost"></i>
+            <!--<i class="fa fa-image mr-2 add-image-post" data-toggle="modal" data-target="#addImagePost"></i>-->
             <i class="fa fa-edit mr-2 edit-post" data-toggle="modal" data-target="#editPost"></i>
             <i class="fa fa-trash delete-post" data-toggle="modal" data-target="#deletePost"></i>
         </span>
@@ -29,7 +29,7 @@
     <span id="commentTitle" class="mr-2">
         <?php print \App\Lang::getRu()['posts']['field']['comments'] ?>:
     </span>
-        <span id="commentCount"><?php print \App\Models\Post::getPostCommentCount($post['id']) ?></span>
+        <span id="commentCount"><?php print \App\Models\Post::getPostCommentCount($post['id'])['count'] ?></span>
     </div>
     <div class=" commentBody">
         <?php require dirname(__DIR__) . '/partials/comments.php' ?>
